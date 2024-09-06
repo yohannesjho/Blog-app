@@ -110,13 +110,14 @@ router.post('/signup',async (req,res)=>{
         const hashedPassword = await bcrypt.hash(password,10)
         const newUser  = new User({username,email,password:hashedPassword})
         await newUser.save()
+        res.redirect('/')
     } catch (error) {
         console.error('Error saving user',error)
         error.status(500).send('server error')
     }
    
    
-     res.redirect('/')
+    
      
 })
 
@@ -137,17 +138,18 @@ router.post('/signin',async (req,res)=>{
             res.status(400).send('invalid email or password')
         }
 
-        const isMatch = await bcrypt.compare(password, user.password)
+        const isMatch =  bcrypt.compare(password, user.password)
         if(!isMatch){
             res.status(400).send('invalid email or password')
         }
         req.session.userId = user._id;
+        res.redirect('/')
     } catch (error) {
         console.log('signin error message ',error)
         res.status(500).send('server error')
     }
    
-    res.redirect('/')
+   
 })
 
 router.get('/logout',(req,res)=>{
