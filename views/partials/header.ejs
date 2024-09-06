@@ -1,9 +1,24 @@
-<nav class="bg-slate-200 shadow-md">
-    <div class="container mx-auto px-4 py-2 flex justify-between items-center">
-        <a href="/" class="text-2xl font-bold text-gray-800">My Blog</a>
-        <div>
-            <a href="/new" class="text-blue-500 hover:text-blue-700">Create New Blog</a>
-            <a href="/users/logout" class="ml-4 text-gray-600 hover:text-gray-800">Logout</a>
-        </div>
-    </div>
-</nav>
+<header class="text-[13px] md:text-base">
+    <% if (isAuthenticated) { %>
+
+        <nav class="bg-gray-800 p-4 flex justify-between">
+            <a href="/" class="text-white">Home</a>
+            <div class="space-x-4">
+                <a href="/new" class="text-white">Create new blog</a>
+                <a href="/profile" class="text-white">Profile</a>
+                <a href="/logout" class="text-white">Logout</a>
+            </div>
+
+        </nav>
+        <% } else { %>
+
+            <nav class="bg-gray-800 p-4 flex justify-between">
+                <a href="/" class="text-white">Home</a>
+                <div class="space-x-4">
+                    <a href="/signin" class="text-white">Sign In</a>
+                    <a href="/signup" class="text-white">Sign Up</a>
+                </div>
+
+            </nav>
+            <% } %>
+</header>

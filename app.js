@@ -3,13 +3,26 @@ const mongoose = require('mongoose')
 const express = require('express');
 const expressLayout = require('express-ejs-layouts');
 const methodOverride = require('method-override');
-
+const session = require('express-session');
 
 
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
+
+app.use(session({
+    secret: 'your-secret-key',
+    resave: false,
+    saveUninitialized: true
+}));
+
+app.use((req, res, next) => {
+    res.locals.userId = req.session.userId;
+    res.locals.isAuthenticated = req.session && req.session.userId;
+    next();
+});
+
 
 //database configuration
 mongoose.connect(process.env.MONGO_DB_URI).then(
