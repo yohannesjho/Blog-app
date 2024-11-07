@@ -4,8 +4,6 @@ const express = require('express');
 const expressLayout = require('express-ejs-layouts');
 const methodOverride = require('method-override');
 const session = require('express-session');
-
-
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
